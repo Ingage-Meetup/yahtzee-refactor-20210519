@@ -69,18 +69,8 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
             0
     }
 
-    fun four_of_a_kind(): Int {
-        val tallies: IntArray = IntArray(6)
-        tallies[dice[0] - 1]++
-        tallies[dice[1] - 1]++
-        tallies[dice[2] - 1]++
-        tallies[dice[3] - 1]++
-        tallies[dice[4] - 1]++
-        for (i in 0..5)
-            if (tallies[i] >= 4)
-                return (i + 1) * 4
-        return 0
-    }
+    fun four_of_a_kind() =
+        dice.groupBy{it}.filter{it.value.size >= 4 }.map{it.value}[0].take(4).sum()
 
     fun three_of_a_kind(): Int {
         val t: IntArray = IntArray(6)
