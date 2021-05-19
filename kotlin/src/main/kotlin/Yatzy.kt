@@ -50,8 +50,7 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
         return 0
     }
 
-    fun chance(): Int {
-        var total = 0
+    fun chance(): Int {var total = 0
         total += dice[0]
         total += dice[1]
         total += dice[2]
@@ -132,47 +131,39 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
             0
     }
 
-    companion object {
+    fun four_of_a_kind(): Int {
+        val tallies: IntArray = IntArray(6)
+        tallies[dice[0] - 1]++
+        tallies[dice[1] - 1]++
+        tallies[dice[2] - 1]++
+        tallies[dice[3] - 1]++
+        tallies[dice[4] - 1]++
+        for (i in 0..5)
+            if (tallies[i] >= 4)
+                return (i + 1) * 4
+        return 0
+    }
 
+    fun three_of_a_kind(): Int {
+        val t: IntArray = IntArray(6)
+        t[dice[0] - 1]++
+        t[dice[1] - 1]++
+        t[dice[2] - 1]++
+        t[dice[3] - 1]++
+        t[dice[4] - 1]++
+        for (i in 0..5)
+            if (t[i] >= 3)
+                return (i + 1) * 3
+        return 0
+    }
 
-
-
-
-
-
-        fun four_of_a_kind(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
+        fun smallStraight(): Int {
             val tallies: IntArray = IntArray(6)
-            tallies[d1 - 1]++
-            tallies[d2 - 1]++
-            tallies[d3 - 1]++
-            tallies[d4 - 1]++
-            tallies[d5 - 1]++
-            for (i in 0..5)
-                if (tallies[i] >= 4)
-                    return (i + 1) * 4
-            return 0
-        }
-
-        fun three_of_a_kind(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
-            val t: IntArray = IntArray(6)
-            t[d1 - 1]++
-            t[d2 - 1]++
-            t[d3 - 1]++
-            t[d4 - 1]++
-            t[d5 - 1]++
-            for (i in 0..5)
-                if (t[i] >= 3)
-                    return (i + 1) * 3
-            return 0
-        }
-
-        fun smallStraight(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
-            val tallies: IntArray = IntArray(6)
-            tallies[d1 - 1] += 1
-            tallies[d2 - 1] += 1
-            tallies[d3 - 1] += 1
-            tallies[d4 - 1] += 1
-            tallies[d5 - 1] += 1
+            tallies[dice[0] - 1] += 1
+            tallies[dice[1] - 1] += 1
+            tallies[dice[2] - 1] += 1
+            tallies[dice[3] - 1] += 1
+            tallies[dice[4] - 1] += 1
             return if (tallies[0] == 1 &&
                 tallies[1] == 1 &&
                 tallies[2] == 1 &&
@@ -181,13 +172,13 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
             ) 15 else 0
         }
 
-        fun largeStraight(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
+        fun largeStraight(): Int {
             val tallies: IntArray = IntArray(6)
-            tallies[d1 - 1] += 1
-            tallies[d2 - 1] += 1
-            tallies[d3 - 1] += 1
-            tallies[d4 - 1] += 1
-            tallies[d5 - 1] += 1
+            tallies[dice[0] - 1] += 1
+            tallies[dice[1] - 1] += 1
+            tallies[dice[2] - 1] += 1
+            tallies[dice[3] - 1] += 1
+            tallies[dice[4] - 1] += 1
             return if (tallies[1] == 1 &&
                 tallies[2] == 1 &&
                 tallies[3] == 1 &&
@@ -196,7 +187,7 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
             ) 20 else 0
         }
 
-        fun fullHouse(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
+        fun fullHouse(): Int {
             val tallies: IntArray
             var _2 = false
             var i: Int
@@ -205,11 +196,11 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
             var _3_at = 0
 
             tallies = IntArray(6)
-            tallies[d1 - 1] += 1
-            tallies[d2 - 1] += 1
-            tallies[d3 - 1] += 1
-            tallies[d4 - 1] += 1
-            tallies[d5 - 1] += 1
+            tallies[dice[0] - 1] += 1
+            tallies[dice[1] - 1] += 1
+            tallies[dice[2] - 1] += 1
+            tallies[dice[3] - 1] += 1
+            tallies[dice[4] - 1] += 1
 
             i = 0
             while (i != 6) {
@@ -234,7 +225,6 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
             else
                 0
         }
-    }
 }
 
 
