@@ -50,92 +50,95 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
         return 0
     }
 
+    fun chance(): Int {
+        var total = 0
+        total += dice[0]
+        total += dice[1]
+        total += dice[2]
+        total += dice[3]
+        total += dice[4]
+        return total
+    }
+
+    fun ones(): Int {
+        var sum = 0
+        if (dice[0] == 1) sum++
+        if (dice[1] == 1) sum++
+        if (dice[2] == 1) sum++
+        if (dice[3] == 1) sum++
+        if (dice[4] == 1)
+            sum++
+
+        return sum
+    }
+
+    fun twos(): Int {
+        var sum = 0
+        if (dice[0] == 2) sum += 2
+        if (dice[1] == 2) sum += 2
+        if (dice[2] == 2) sum += 2
+        if (dice[3] == 2) sum += 2
+        if (dice[4] == 2) sum += 2
+        return sum
+    }
+
+    fun threes(): Int {
+        var s: Int = 0
+        if (dice[0] == 3) s += 3
+        if (dice[1] == 3) s += 3
+        if (dice[2] == 3) s += 3
+        if (dice[3] == 3) s += 3
+        if (dice[4] == 3) s += 3
+        return s
+    }
+
+    fun score_pair(): Int {
+        val counts = IntArray(6)
+        counts[dice[0] - 1]++
+        counts[dice[1] - 1]++
+        counts[dice[2] - 1]++
+        counts[dice[3] - 1]++
+        counts[dice[4] - 1]++
+        var at: Int
+        at = 0
+        while (at != 6) {
+            if (counts[6 - at - 1] >= 2)
+                return (6 - at) * 2
+            at++
+        }
+        return 0
+    }
+
+    fun two_pair(): Int {
+        val counts = IntArray(6)
+        counts[dice[0] - 1]++
+        counts[dice[1] - 1]++
+        counts[dice[2] - 1]++
+        counts[dice[3] - 1]++
+        counts[dice[4] - 1]++
+        var n = 0
+        var score = 0
+        var i = 0
+        while (i < 6) {
+            if (counts[6 - i - 1] >= 2) {
+                n++
+                score += 6 - i
+            }
+            i += 1
+        }
+        return if (n == 2)
+            score * 2
+        else
+            0
+    }
+
     companion object {
 
-        fun chance(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
-            var total = 0
-            total += d1
-            total += d2
-            total += d3
-            total += d4
-            total += d5
-            return total
-        }
-
-        //fun yatzy(vararg dice: Int): Int {
 
 
-        fun ones(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
-            var sum = 0
-            if (d1 == 1) sum++
-            if (d2 == 1) sum++
-            if (d3 == 1) sum++
-            if (d4 == 1) sum++
-            if (d5 == 1)
-                sum++
 
-            return sum
-        }
 
-        fun twos(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
-            var sum = 0
-            if (d1 == 2) sum += 2
-            if (d2 == 2) sum += 2
-            if (d3 == 2) sum += 2
-            if (d4 == 2) sum += 2
-            if (d5 == 2) sum += 2
-            return sum
-        }
 
-        fun threes(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
-            var s: Int = 0
-            if (d1 == 3) s += 3
-            if (d2 == 3) s += 3
-            if (d3 == 3) s += 3
-            if (d4 == 3) s += 3
-            if (d5 == 3) s += 3
-            return s
-        }
-
-        fun score_pair(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
-            val counts = IntArray(6)
-            counts[d1 - 1]++
-            counts[d2 - 1]++
-            counts[d3 - 1]++
-            counts[d4 - 1]++
-            counts[d5 - 1]++
-            var at: Int
-            at = 0
-            while (at != 6) {
-                if (counts[6 - at - 1] >= 2)
-                    return (6 - at) * 2
-                at++
-            }
-            return 0
-        }
-
-        fun two_pair(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
-            val counts = IntArray(6)
-            counts[d1 - 1]++
-            counts[d2 - 1]++
-            counts[d3 - 1]++
-            counts[d4 - 1]++
-            counts[d5 - 1]++
-            var n = 0
-            var score = 0
-            var i = 0
-            while (i < 6) {
-                if (counts[6 - i - 1] >= 2) {
-                    n++
-                    score += 6 - i
-                }
-                i += 1
-            }
-            return if (n == 2)
-                score * 2
-            else
-                0
-        }
 
         fun four_of_a_kind(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
             val tallies: IntArray = IntArray(6)
