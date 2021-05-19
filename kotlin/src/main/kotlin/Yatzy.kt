@@ -11,34 +11,15 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
         dice[4] = d5
     }
 
-    fun fours(): Int {
-        var sum: Int = 0
-        for (at in 0..4) {
-            if (dice[at] == 4) {
-                sum += 4
-            }
-        }
-        return sum
-    }
+    private fun scoreIndividualDice(number: Int) =
+        dice.filter { it == number }.size * number
 
-    fun fives(): Int {
-        var s = 0
-        var i: Int = 0
-        while (i < dice.size) {
-            if (dice[i] == 5)
-                s = s + 5
-            i++
-        }
-        return s
-    }
-
-    fun sixes(): Int {
-        var sum = 0
-        for (at in dice.indices)
-            if (dice[at] == 6)
-                sum = sum + 6
-        return sum
-    }
+    fun ones() = scoreIndividualDice(1)
+    fun twos() = scoreIndividualDice(2)
+    fun threes() = scoreIndividualDice(3)
+    fun fours() = scoreIndividualDice(4)
+    fun fives() = scoreIndividualDice(5)
+    fun sixes() = scoreIndividualDice(6)
 
     fun yatzy(): Int {
         val counts = IntArray(6)
@@ -57,38 +38,6 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
         total += dice[3]
         total += dice[4]
         return total
-    }
-
-    fun ones(): Int {
-        var sum = 0
-        if (dice[0] == 1) sum++
-        if (dice[1] == 1) sum++
-        if (dice[2] == 1) sum++
-        if (dice[3] == 1) sum++
-        if (dice[4] == 1)
-            sum++
-
-        return sum
-    }
-
-    fun twos(): Int {
-        var sum = 0
-        if (dice[0] == 2) sum += 2
-        if (dice[1] == 2) sum += 2
-        if (dice[2] == 2) sum += 2
-        if (dice[3] == 2) sum += 2
-        if (dice[4] == 2) sum += 2
-        return sum
-    }
-
-    fun threes(): Int {
-        var s: Int = 0
-        if (dice[0] == 3) s += 3
-        if (dice[1] == 3) s += 3
-        if (dice[2] == 3) s += 3
-        if (dice[3] == 3) s += 3
-        if (dice[4] == 3) s += 3
-        return s
     }
 
     fun score_pair(): Int {
