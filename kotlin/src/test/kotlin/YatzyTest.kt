@@ -6,17 +6,13 @@ class YatzyTest {
 
     @Test
     fun chance_scores_sum_of_all_dice() {
-        val expected = 15
-        val actual = Yatzy(2, 3, 4, 5, 1).chance()
-        assertEquals(expected, actual)
+        assertEquals(15, Yatzy(2, 3, 4, 5, 1).chance())
         assertEquals(16, Yatzy(3, 3, 4, 5, 1).chance())
     }
 
     @Test
     fun yatzy_scores_50() {
-        val expected = 50
-        val actual = Yatzy(4, 4, 4, 4, 4).yatzy()
-        assertEquals(expected, actual)
+        assertEquals(50, Yatzy(4, 4, 4, 4, 4).yatzy())
         assertEquals(50, Yatzy(6, 6, 6, 6, 6).yatzy())
         assertEquals(0, Yatzy(6, 6, 6, 6, 3).yatzy())
     }
@@ -77,12 +73,12 @@ class YatzyTest {
     }
 
     @Test
-    fun three_of_a_kind() {        
+    fun three_of_a_kind() {
         assertEquals(9, Yatzy(3, 3, 3, 4, 5).three_of_a_kind())
         assertEquals(15, Yatzy(5, 3, 5, 4, 5).three_of_a_kind())
         assertEquals(9, Yatzy(3, 3, 3, 3, 5).three_of_a_kind())
     }
-    
+
     @Test
     fun four_of_a_kind() {
         assertEquals(12, Yatzy(3, 3, 3, 3, 5).four_of_a_kind())
