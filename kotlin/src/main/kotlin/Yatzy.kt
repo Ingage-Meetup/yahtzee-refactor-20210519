@@ -31,14 +31,7 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
         return 0
     }
 
-    fun chance(): Int {var total = 0
-        total += dice[0]
-        total += dice[1]
-        total += dice[2]
-        total += dice[3]
-        total += dice[4]
-        return total
-    }
+    fun chance() = dice.sum()
 
     fun score_pair(): Int {
         val counts = IntArray(6)
