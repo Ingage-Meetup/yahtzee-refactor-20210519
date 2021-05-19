@@ -40,6 +40,16 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
         return sum
     }
 
+    fun yatzy(): Int {
+        val counts = IntArray(6)
+        for (die in dice)
+            counts[die - 1]++
+        for (i in 0..5)
+            if (counts[i] == 5)
+                return 50
+        return 0
+    }
+
     companion object {
 
         fun chance(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
@@ -52,15 +62,8 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
             return total
         }
 
-        fun yatzy(vararg dice: Int): Int {
-            val counts = IntArray(6)
-            for (die in dice)
-                counts[die - 1]++
-            for (i in 0..5)
-                if (counts[i] == 5)
-                    return 50
-            return 0
-        }
+        //fun yatzy(vararg dice: Int): Int {
+
 
         fun ones(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
             var sum = 0
