@@ -1,5 +1,5 @@
 
-class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, _5: Int) {
+class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
 
     protected var dice: IntArray = IntArray(5)
 
@@ -8,7 +8,7 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, _5: Int) {
         dice[1] = d2
         dice[2] = d3
         dice[3] = d4
-        dice[4] = _5
+        dice[4] = d5
     }
 
     fun fours(): Int {
@@ -134,10 +134,10 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, _5: Int) {
                 0
         }
 
-        fun four_of_a_kind(_1: Int, _2: Int, d3: Int, d4: Int, d5: Int): Int {
+        fun four_of_a_kind(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int): Int {
             val tallies: IntArray = IntArray(6)
-            tallies[_1 - 1]++
-            tallies[_2 - 1]++
+            tallies[d1 - 1]++
+            tallies[d2 - 1]++
             tallies[d3 - 1]++
             tallies[d4 - 1]++
             tallies[d5 - 1]++
