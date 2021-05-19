@@ -5,20 +5,24 @@ import org.junit.Assert.*
 class YatzyTest {
 
     @Test
-    fun chance_scores_sum_of_all_dice() {
+    fun `Chance must score the sum of all dice`() {
         assertEquals(15, Yatzy(2, 3, 4, 5, 1).chance())
         assertEquals(16, Yatzy(3, 3, 4, 5, 1).chance())
     }
 
     @Test
-    fun yatzy_scores_50() {
+    fun `Five of the same dice as Yatzy scores 50`() {
         assertEquals(50, Yatzy(4, 4, 4, 4, 4).yatzy())
         assertEquals(50, Yatzy(6, 6, 6, 6, 6).yatzy())
+    }
+
+    @Test
+    fun `A non yatzy scored as a Yatzy scores 0`() {
         assertEquals(0, Yatzy(6, 6, 6, 6, 3).yatzy())
     }
 
     @Test
-    fun test_1s() {
+    fun `Ones are scored as sum of the ones in the roll`() {
         assertEquals(1, Yatzy(1, 2, 3, 4, 5).ones())
         assertEquals(2, Yatzy(1, 2, 1, 4, 5).ones())
         assertEquals(0, Yatzy(6, 2, 2, 4, 5).ones())
@@ -26,34 +30,33 @@ class YatzyTest {
     }
 
     @Test
-    fun test_2s() {
+    fun `Two are scored as sum of the two in the roll`() {
         assertEquals(4, Yatzy(1, 2, 3, 2, 6).twos())
         assertEquals(10, Yatzy(2, 2, 2, 2, 2).twos())
     }
 
     @Test
-    fun test_threes() {
+    fun `Threes are scored as sum of the threes in the roll`() {
         assertEquals(6, Yatzy(1, 2, 3, 2, 3).threes())
         assertEquals(12, Yatzy(2, 3, 3, 3, 3).threes())
     }
 
     @Test
-    fun fours_test() {
+    fun `Fours are scored as sum of the fours in the roll`() {
         assertEquals(12, Yatzy(4, 4, 4, 5, 5).fours())
         assertEquals(8, Yatzy(4, 4, 5, 5, 5).fours())
         assertEquals(4, Yatzy(4, 5, 5, 5, 5).fours())
     }
 
-    // TODO: Make consistent test names (use NAME_test with underscores)
     @Test
-    fun fives() {
+    fun `Fives are scored as sum of the fives in the roll`() {
         assertEquals(10, Yatzy(4, 4, 4, 5, 5).fives())
         assertEquals(15, Yatzy(4, 4, 5, 5, 5).fives())
         assertEquals(20, Yatzy(4, 5, 5, 5, 5).fives())
     }
 
     @Test
-    fun sixes_test() {
+    fun `Sixes are scored as sum of the sixes in the roll`() {
         assertEquals(0, Yatzy(4, 4, 4, 5, 5).sixes())
         assertEquals(6, Yatzy(4, 4, 6, 5, 5).sixes())
         assertEquals(18, Yatzy(6, 5, 6, 6, 5).sixes())
