@@ -21,14 +21,10 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
     fun fives() = scoreIndividualDice(5)
     fun sixes() = scoreIndividualDice(6)
 
-    fun yatzy(): Int {
-        val counts = IntArray(6)
-        for (die in dice)
-            counts[die - 1]++
-        for (i in 0..5)
-            if (counts[i] == 5)
-                return 50
-        return 0
+    fun yatzy() = if(dice.distinct().size == 1) {
+        50
+    } else {
+        0
     }
 
     fun chance() = dice.sum()
