@@ -20,11 +20,8 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
     fun fives() = scoreIndividualDice(5)
     fun sixes() = scoreIndividualDice(6)
 
-    fun yatzy() = if (dice.distinct().size == 1) {
-        50
-    } else {
-        0
-    }
+    fun yatzy() =
+        dice.distinct().takeIf { it.size == 1 }?.let { 50 } ?: 0
 
     fun chance() = dice.sum()
 
@@ -40,21 +37,11 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
     fun three_of_a_kind() =
         dice.groupBy { it }.filter { it.value.size >= 3 }.map { it.value }[0].take(3).sum()
 
-    fun smallStraight() = with(dice.toSortedSet()) {
-        if (size != 5 || first() != 1 || last() != 5) {
-            0
-        } else {
-            15
-        }
-    }
+    fun smallStraight() =
+        dice.toSortedSet().takeIf { it.size == 5 && it.last() == 5 }?.let { 15 } ?: 0
 
-    fun largeStraight() = with(dice.toSortedSet()) {
-        if (size != 5 || first() != 2 || last() != 6) {
-            0
-        } else {
-            20
-        }
-    }
+    fun largeStraight() =
+        dice.toSortedSet().takeIf { it.size == 5 && it.last() == 6 }?.let { 20 } ?: 0
 
     fun fullHouse() =
         dice.groupBy { it }.filter { it.value.size == 2 || it.value.size == 3 }?.takeIf { it.size == 2 }?.values?.flatten()?.sum()
