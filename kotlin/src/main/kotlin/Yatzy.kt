@@ -31,28 +31,8 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
     fun score_pair() =
         dice.groupBy { it }.filter { it.value.size >= 2 }.maxBy { it.key }?.value?.take(2)?.sum() ?: 0
 
-    fun two_pair(): Int {
-        val counts = IntArray(6)
-        counts[dice[0] - 1]++
-        counts[dice[1] - 1]++
-        counts[dice[2] - 1]++
-        counts[dice[3] - 1]++
-        counts[dice[4] - 1]++
-        var n = 0
-        var score = 0
-        var i = 0
-        while (i < 6) {
-            if (counts[6 - i - 1] >= 2) {
-                n++
-                score += 6 - i
-            }
-            i += 1
-        }
-        return if (n == 2)
-            score * 2
-        else
-            0
-    }
+    fun two_pair() =
+        dice.groupBy { it }.filter { it.value.size >= 2 }.takeIf { it.size >= 2 }?.toSortedMap()?.values?.map { it.take(2) }?.flatten()?.sum() ?: 0
 
     fun four_of_a_kind() =
         dice.groupBy { it }.filter { it.value.size >= 4 }.map { it.value }[0].take(4).sum()
