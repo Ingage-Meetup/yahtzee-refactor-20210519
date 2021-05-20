@@ -1,4 +1,3 @@
-
 class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
 
     protected var dice: IntArray = IntArray(5)
@@ -21,7 +20,7 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
     fun fives() = scoreIndividualDice(5)
     fun sixes() = scoreIndividualDice(6)
 
-    fun yatzy() = if(dice.distinct().size == 1) {
+    fun yatzy() = if (dice.distinct().size == 1) {
         50
     } else {
         0
@@ -29,22 +28,8 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
 
     fun chance() = dice.sum()
 
-    fun score_pair(): Int {
-        val counts = IntArray(6)
-        counts[dice[0] - 1]++
-        counts[dice[1] - 1]++
-        counts[dice[2] - 1]++
-        counts[dice[3] - 1]++
-        counts[dice[4] - 1]++
-        var at: Int
-        at = 0
-        while (at != 6) {
-            if (counts[6 - at - 1] >= 2)
-                return (6 - at) * 2
-            at++
-        }
-        return 0
-    }
+    fun score_pair() =
+        dice.groupBy { it }.filter { it.value.size >= 2 }.maxBy { it.key }?.value?.take(2)?.sum() ?: 0
 
     fun two_pair(): Int {
         val counts = IntArray(6)
@@ -70,89 +55,79 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
     }
 
     fun four_of_a_kind() =
-        dice.groupBy{it}.filter{it.value.size >= 4 }.map{it.value}[0].take(4).sum()
+        dice.groupBy { it }.filter { it.value.size >= 4 }.map { it.value }[0].take(4).sum()
 
-    fun three_of_a_kind(): Int {
-        val t: IntArray = IntArray(6)
-        t[dice[0] - 1]++
-        t[dice[1] - 1]++
-        t[dice[2] - 1]++
-        t[dice[3] - 1]++
-        t[dice[4] - 1]++
-        for (i in 0..5)
-            if (t[i] >= 3)
-                return (i + 1) * 3
-        return 0
+    fun three_of_a_kind() =
+        dice.groupBy { it }.filter { it.value.size >= 3 }.map { it.value }[0].take(3).sum()
+
+    fun smallStraight(): Int {
+        val tallies: IntArray = IntArray(6)
+        tallies[dice[0] - 1] += 1
+        tallies[dice[1] - 1] += 1
+        tallies[dice[2] - 1] += 1
+        tallies[dice[3] - 1] += 1
+        tallies[dice[4] - 1] += 1
+        return if (tallies[0] == 1 &&
+            tallies[1] == 1 &&
+            tallies[2] == 1 &&
+            tallies[3] == 1 &&
+            tallies[4] == 1
+        ) 15 else 0
     }
 
-        fun smallStraight(): Int {
-            val tallies: IntArray = IntArray(6)
-            tallies[dice[0] - 1] += 1
-            tallies[dice[1] - 1] += 1
-            tallies[dice[2] - 1] += 1
-            tallies[dice[3] - 1] += 1
-            tallies[dice[4] - 1] += 1
-            return if (tallies[0] == 1 &&
-                tallies[1] == 1 &&
-                tallies[2] == 1 &&
-                tallies[3] == 1 &&
-                tallies[4] == 1
-            ) 15 else 0
-        }
+    fun largeStraight(): Int {
+        val tallies: IntArray = IntArray(6)
+        tallies[dice[0] - 1] += 1
+        tallies[dice[1] - 1] += 1
+        tallies[dice[2] - 1] += 1
+        tallies[dice[3] - 1] += 1
+        tallies[dice[4] - 1] += 1
+        return if (tallies[1] == 1 &&
+            tallies[2] == 1 &&
+            tallies[3] == 1 &&
+            tallies[4] == 1
+            && tallies[5] == 1
+        ) 20 else 0
+    }
 
-        fun largeStraight(): Int {
-            val tallies: IntArray = IntArray(6)
-            tallies[dice[0] - 1] += 1
-            tallies[dice[1] - 1] += 1
-            tallies[dice[2] - 1] += 1
-            tallies[dice[3] - 1] += 1
-            tallies[dice[4] - 1] += 1
-            return if (tallies[1] == 1 &&
-                tallies[2] == 1 &&
-                tallies[3] == 1 &&
-                tallies[4] == 1
-                && tallies[5] == 1
-            ) 20 else 0
-        }
+    fun fullHouse(): Int {
+        val tallies: IntArray
+        var _2 = false
+        var i: Int
+        var _2_at = 0
+        var _3 = false
+        var _3_at = 0
 
-        fun fullHouse(): Int {
-            val tallies: IntArray
-            var _2 = false
-            var i: Int
-            var _2_at = 0
-            var _3 = false
-            var _3_at = 0
+        tallies = IntArray(6)
+        tallies[dice[0] - 1] += 1
+        tallies[dice[1] - 1] += 1
+        tallies[dice[2] - 1] += 1
+        tallies[dice[3] - 1] += 1
+        tallies[dice[4] - 1] += 1
 
-            tallies = IntArray(6)
-            tallies[dice[0] - 1] += 1
-            tallies[dice[1] - 1] += 1
-            tallies[dice[2] - 1] += 1
-            tallies[dice[3] - 1] += 1
-            tallies[dice[4] - 1] += 1
-
-            i = 0
-            while (i != 6) {
-                if (tallies[i] == 2) {
-                    _2 = true
-                    _2_at = i + 1
-                }
-                i += 1
+        i = 0
+        while (i != 6) {
+            if (tallies[i] == 2) {
+                _2 = true
+                _2_at = i + 1
             }
-
-            i = 0
-            while (i != 6) {
-                if (tallies[i] == 3) {
-                    _3 = true
-                    _3_at = i + 1
-                }
-                i += 1
-            }
-
-            return if (_2 && _3)
-                _2_at * 2 + _3_at * 3
-            else
-                0
+            i += 1
         }
+
+        i = 0
+        while (i != 6) {
+            if (tallies[i] == 3) {
+                _3 = true
+                _3_at = i + 1
+            }
+            i += 1
+        }
+
+        return if (_2 && _3)
+            _2_at * 2 + _3_at * 3
+        else
+            0
+    }
 }
 
 
