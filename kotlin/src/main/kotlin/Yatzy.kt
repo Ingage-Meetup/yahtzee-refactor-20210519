@@ -40,34 +40,20 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
     fun three_of_a_kind() =
         dice.groupBy { it }.filter { it.value.size >= 3 }.map { it.value }[0].take(3).sum()
 
-    fun smallStraight(): Int {
-        val tallies: IntArray = IntArray(6)
-        tallies[dice[0] - 1] += 1
-        tallies[dice[1] - 1] += 1
-        tallies[dice[2] - 1] += 1
-        tallies[dice[3] - 1] += 1
-        tallies[dice[4] - 1] += 1
-        return if (tallies[0] == 1 &&
-            tallies[1] == 1 &&
-            tallies[2] == 1 &&
-            tallies[3] == 1 &&
-            tallies[4] == 1
-        ) 15 else 0
+    fun smallStraight() = with(dice.toSortedSet()) {
+        if (size != 5 || first() != 1 || last() != 5) {
+            0
+        } else {
+            15
+        }
     }
 
-    fun largeStraight(): Int {
-        val tallies: IntArray = IntArray(6)
-        tallies[dice[0] - 1] += 1
-        tallies[dice[1] - 1] += 1
-        tallies[dice[2] - 1] += 1
-        tallies[dice[3] - 1] += 1
-        tallies[dice[4] - 1] += 1
-        return if (tallies[1] == 1 &&
-            tallies[2] == 1 &&
-            tallies[3] == 1 &&
-            tallies[4] == 1
-            && tallies[5] == 1
-        ) 20 else 0
+    fun largeStraight() = with(dice.toSortedSet()) {
+        if (size != 5 || first() != 2 || last() != 6) {
+            0
+        } else {
+            20
+        }
     }
 
     fun fullHouse(): Int {
