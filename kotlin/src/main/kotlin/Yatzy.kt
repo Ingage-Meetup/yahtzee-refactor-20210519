@@ -56,44 +56,9 @@ class Yatzy(d1: Int, d2: Int, d3: Int, d4: Int, d5: Int) {
         }
     }
 
-    fun fullHouse(): Int {
-        val tallies: IntArray
-        var _2 = false
-        var i: Int
-        var _2_at = 0
-        var _3 = false
-        var _3_at = 0
-
-        tallies = IntArray(6)
-        tallies[dice[0] - 1] += 1
-        tallies[dice[1] - 1] += 1
-        tallies[dice[2] - 1] += 1
-        tallies[dice[3] - 1] += 1
-        tallies[dice[4] - 1] += 1
-
-        i = 0
-        while (i != 6) {
-            if (tallies[i] == 2) {
-                _2 = true
-                _2_at = i + 1
-            }
-            i += 1
-        }
-
-        i = 0
-        while (i != 6) {
-            if (tallies[i] == 3) {
-                _3 = true
-                _3_at = i + 1
-            }
-            i += 1
-        }
-
-        return if (_2 && _3)
-            _2_at * 2 + _3_at * 3
-        else
-            0
-    }
+    fun fullHouse() =
+        dice.groupBy { it }.filter { it.value.size == 2 || it.value.size == 3 }?.takeIf { it.size == 2 }?.values?.flatten()?.sum()
+            ?: 0
 }
 
 
